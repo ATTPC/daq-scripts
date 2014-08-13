@@ -5,7 +5,7 @@
   command: mkdir -p /daq/packages /daq/ACQ_HOST
 
 - name: sync packages
-  synchronize: src=/daq/packages dest=/daq/packages
+  synchronize: src=/daq/packages dest=/daq
 
 - name: sync ACQ_HOST links
-  synchronize: src=/daq/ACQ_HOST dest=/daq/packages
+  synchronize: src=/daq/ACQ_HOST dest=/daq
