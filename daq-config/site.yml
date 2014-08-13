@@ -1,0 +1,9 @@
+---
+# Applies the playbooks to all controlled computers
+
+- name: apply configuration to daqnodes
+  hosts: macminis
+  user: root
+
+  roles:
+  - daqnode

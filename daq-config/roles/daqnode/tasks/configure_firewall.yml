@@ -1,0 +1,8 @@
+---
+# Configure firewall rules to allow Narval/RCC communications
+
+- name: allow firewall ports
+  firewalld: port={{ item }}/tcp permanent=true state=enabled
+  with_items:
+    - 6080  
+    - 46000-47000

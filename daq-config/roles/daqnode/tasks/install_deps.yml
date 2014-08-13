@@ -1,0 +1,39 @@
+---
+# This contains tasks to install dependencies for the DAQ server software
+
+- name: install dependencies
+  yum: name={{ item }} state=present
+  with_items:
+  - gsoap
+  - gsoap-devel
+  - log4cxx
+  - log4cxx-devel
+  - xerces-c
+  - xerces-c-devel
+  - tcsh
+  - nedit
+  - xterm
+  - libtool
+  - monotone
+  - autoconf
+  - uuid-devel
+  - subversion
+  - expat
+  - expat-devel
+  - perl-CPAN
+
+- name: install vim
+  yum: name=vim state=present
+
+# The next one is required for the perl packages
+
+- name: install cpanminus
+  yum: name=perl-App-cpanminus state=present
+
+- name: install perl packages
+  cpanm: name={{ item }} 
+  with_items:
+  - Fatal
+  - XML::Parser
+  - XML::Parser::Wrapper
+  - XML::SAX

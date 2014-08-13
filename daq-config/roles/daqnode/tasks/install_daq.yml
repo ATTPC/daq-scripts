@@ -1,0 +1,11 @@
+---
+# Install the Ganil DAQ packages
+
+- name: create the daq folder
+  command: mkdir -p /daq/packages /daq/ACQ_HOST
+
+- name: sync packages
+  synchronize: src=/daq/packages dest=/daq/packages
+
+- name: sync ACQ_HOST links
+  synchronize: src=/daq/ACQ_HOST dest=/daq/packages

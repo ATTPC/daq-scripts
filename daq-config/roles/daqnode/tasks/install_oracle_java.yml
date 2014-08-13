@@ -1,0 +1,19 @@
+---
+# Download and install Oracle Java
+
+- name: remove openjdk java
+  yum: name=java-1.7.0-openjdk state=absent
+  yum: name=java-1.7.0-openjdk-headless state=absent
+
+- name: copy java rpm
+  copy: src=jdk-8u11-linux-x64.rpm dest=/home/attpc/Downloads
+
+- name: install java rpm
+  yum: name=/home/attpc/Downloads/jdk-8u11-linux-x64.rpm state=present
+
+- name: select correct java
+  alternatives: name=java path=/usr/java/latest/jre/bin/java link=/usr/bin/java
+  alternatives: name=javac path=/usr/java/latest/bin/javac link=/usr/bin/javac
+  alternatives: name=javaws path=/usr/java/latest/bin/javaws link=/usr/bin/javaws
+  alternatives: name=java-1.8.0 path=/usr/java/latest link=/usr/lib/jvm/java-1.8.0
+  alternatives: name=jre-1.8.0 path=/usr/java/latest/jre link=/usr/lib/jvm/jre-1.8.0
