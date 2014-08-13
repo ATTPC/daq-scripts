@@ -6,3 +6,4 @@
   with_items:
     - 6080  
     - 46000-47000
+  sudo: yes

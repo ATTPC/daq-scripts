@@ -1,0 +1,10 @@
+---
+# Environment configuration for DAQ
+
+- name: set up tcshrc
+  lineinfile: dest=/home/attpc/.tcshrc create=yes 
+    line="source /daq/ACQ_HOST/latest/Scripts/SetEnvACQ_ATTPC" state=present
+
+- name: set tsch as default
+  user: name=attpc shell=/bin/tcsh state=present
+  sudo: yes

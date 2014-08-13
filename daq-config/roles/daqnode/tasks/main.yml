@@ -5,3 +5,4 @@
 - include: install_oracle_java.yml
 - include: configure_firewall.yml
 - include: install_daq.yml
+- include: env_config.yml
