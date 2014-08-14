@@ -2,8 +2,7 @@
 # Install the Ganil DAQ packages
 
 - name: create the daq folder
-  file: path=/daq owner=attpc group=attpc state=directory
-  sudo: yes
+  file: path=/daq owner=attpc group=daq mode=0775 state=directory
 
 - name: sync packages
   synchronize: src=/daq/packages dest=/daq

@@ -4,5 +4,6 @@
 - include: install_deps.yml
 - include: install_oracle_java.yml
 - include: configure_firewall.yml
+- include: users.yml
 - include: install_daq.yml
 - include: env_config.yml

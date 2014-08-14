@@ -21,17 +21,15 @@
     - expat
     - expat-devel
     - perl-CPAN
-  sudo: yes
+    - log4j
 
 - name: install vim
   yum: name=vim state=present
-  sudo: yes
 
 # The next one is required for the perl packages
 
 - name: install cpanminus
   yum: name=perl-App-cpanminus state=present
-  sudo: yes
 
 - name: install perl packages
   cpanm: name={{ item }} 
@@ -40,4 +38,3 @@
     - XML::Parser
     - XML::Parser::Wrapper
     - XML::SAX
-  sudo: yes

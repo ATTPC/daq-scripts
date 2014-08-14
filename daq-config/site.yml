@@ -3,7 +3,7 @@
 
 - name: apply configuration to daqnodes
   hosts: macminis
-  remote_user: ansible
+  remote_user: root
 
   roles:
   - daqnode

@@ -7,4 +7,3 @@
 
 - name: set tsch as default
   user: name=attpc shell=/bin/tcsh state=present
-  sudo: yes
