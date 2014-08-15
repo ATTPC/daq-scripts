@@ -1,7 +1,7 @@
 ---
 # This contains tasks to install dependencies for the DAQ server software
 
-- name: install dependencies
+- name: install dependencies for daq
   yum: name={{ item }} state=present
   with_items:
     - gsoap
@@ -22,9 +22,21 @@
     - expat-devel
     - perl-CPAN
     - log4j
+    
+- name: install dependencies for GET
+  yum: name={{ item }} state=present
+  with_items:
+    - qwt
+    - qwt-devel
+    - boost-devel
+    - ice
+    - ice-devel
 
-- name: install vim
-  yum: name=vim state=present
+- name: install other convenient packages
+  yum: name={{ item }} state=present
+  with_items: 
+    - vim
+    - telnet
 
 # The next one is required for the perl packages
 

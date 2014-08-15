@@ -4,8 +4,11 @@
 - name: create the daq folder
   file: path=/daq owner=attpc group=daq mode=0775 state=directory
 
-- name: sync packages
+- name: sync daq packages
   synchronize: src=/daq/packages dest=/daq
 
 - name: sync ACQ_HOST links
   synchronize: src=/daq/ACQ_HOST dest=/daq
+  
+- name: sync GET packages
+  synchronize: src=/daq/GET dest=/daq

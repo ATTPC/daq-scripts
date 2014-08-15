@@ -1,0 +1,11 @@
+---
+# Distribute root's ssh public key to the daq nodes. This is used for maintenance.
+
+- name: distribute root public key
+  hosts: macminis
+  remote_user: root
+  
+  tasks:
+    - name: authorize root public key
+      authorized_key: user=root manage_dir=yes key="{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+        state=present

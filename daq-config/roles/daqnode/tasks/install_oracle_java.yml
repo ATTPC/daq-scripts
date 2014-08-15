@@ -2,10 +2,10 @@
 # Download and install Oracle Java
 
 - name: copy java rpm
-  copy: src=jdk-8u11-linux-x64.rpm dest=/home/ansible
+  copy: src=jdk-8u11-linux-x64.rpm dest=/home/attpc
 
 - name: install java rpm
-  yum: name=/home/ansible/jdk-8u11-linux-x64.rpm state=present
+  yum: name=/home/attpc/jdk-8u11-linux-x64.rpm state=present
 
 - name: select correct java
   alternatives: name=java path=/usr/java/latest/jre/bin/java link=/usr/bin/java

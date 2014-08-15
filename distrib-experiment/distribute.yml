@@ -1,0 +1,25 @@
+---
+# Distribute the provided experiment folder to all nodes
+# 
+# Note: the folder must be passed in through the command line
+#
+
+- hosts: macminis
+  remote_user: attpc
+  tasks:
+    - name: ensure ganacq_manip folder exists
+      file: path=/home/attpc/ganacq_manip state=directory owner=attpc group=attpc
+
+    - name: sync experiment folder
+      synchronize: src=/home/attpc/ganacq_manip/{{ exp_name }} dest=/home/attpc/ganacq_manip
+
+    - name: sync .narval links
+      synchronize: src=/home/attpc/.narval dest=/home/attpc
+      
+    - name: create data directories
+      synchronize: src=/home/attpc/data/{{ exp_name }} dest=/home/attpc/data dirs=yes
+      
+    - name: set data path
+      lineinfile: dest=/home/attpc/ganacq_manip/config_acq.txt 
+        line="{{ exp_name }} /home/attpc/data/{{ exp_name }}" 
+        state=present create=yes

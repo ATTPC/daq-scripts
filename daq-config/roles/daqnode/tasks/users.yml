@@ -1,0 +1,25 @@
+---
+# Ensure the correct users and groups, and manage ssh keys
+
+- name: create daq group
+  group: name=daq state=present
+  
+- name: add attpc user to daq
+  user: name=attpc append=yes groups=daq state=present
+  
+- name: add ansible user to daq
+  user: name=ansible append=yes groups=daq state=present
+  
+- name: setup ssh keys for attpc
+  user: name=attpc generate_ssh_key=yes ssh_key_type=rsa state=present
+  
+- name: fetch ssh public keys to control computer
+  fetch: src=/home/attpc/.ssh/id_rsa.pub flat=yes
+    dest=/home/attpc/.ssh/node_keys/id_rsa_{{ inventory_hostname }}.pub
+  
+- name: authorize all keys on all nodes
+  authorized_key: user=attpc key="{{ lookup('file', item ) }}"
+    manage_dir=yes state=present
+  with_fileglob: 
+    - /home/attpc/.ssh/node_keys/*
+    - /home/attpc/.ssh/id_rsa.pub
