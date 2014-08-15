@@ -1,0 +1,14 @@
+---
+# Fetch data from DAQ nodes
+
+- name: fetch data
+  hosts: active
+  remote_user: attpc
+  
+  vars:
+    - remote_path: /home/attpc/ganacq_manip
+    - local_path_root: /data/fetched
+  
+  tasks:
+    - synchronize: mode=pull src="{{ remote_path }}" 
+        dest="{{ local_path_root }}/{{ inventory_hostname }}"
