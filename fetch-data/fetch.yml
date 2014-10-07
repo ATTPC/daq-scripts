@@ -6,9 +6,10 @@
   remote_user: attpc
   
   vars:
-    - remote_path: /home/attpc/ganacq_manip
+    - remote_path: /data/attpcX
     - local_path_root: /data/fetched
   
   tasks:
     - synchronize: mode=pull src="{{ remote_path }}" 
         dest="{{ local_path_root }}/{{ inventory_hostname }}"
+        copy_links=yes

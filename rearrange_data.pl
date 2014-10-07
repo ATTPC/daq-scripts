@@ -31,7 +31,8 @@ my $expname = $ARGV[0];
 
 # The next path is the subpath of $fetchdir where the files are found
 
-my $subpath = "ganacq_manip/$expname/acquisition/run";
+# my $subpath = "ganacq_manip/$expname/acquisition/run";
+my $subpath = "attpcX/$expname/acquisition/run";
 
 my $finalpath = "$cleandir/$expname";
 
