@@ -1,9 +1,14 @@
 ---
 # Environment configuration for DAQ
 
-- name: set up tcshrc
-  lineinfile: dest=/home/attpc/.tcshrc create=yes 
-    line="source /daq/ACQ_HOST/latest/Scripts/SetEnvACQ_ATTPC" state=present
+- name: set up tcshrc for daq
+  lineinfile: dest=/home/attpc/.tcshrc create=yes state=present
+    line="source /daq/ACQ_HOST/latest/Scripts/SetEnvACQ_ATTPC"
+    
+- name: set up tcshrc for GET
+  lineinfile: dest=/home/attpc/.tcshrc create=yes state=present   
+    line="source /daq/GET/latest/GETUP.tcsh"
+    
 
 - name: set tsch as default
   user: name=attpc shell=/bin/tcsh state=present
