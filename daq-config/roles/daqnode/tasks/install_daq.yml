@@ -21,3 +21,9 @@
   
 - name: sync GET packages
   synchronize: src=/daq/GET dest=/daq
+  
+- name: set up ECC service
+  copy: src=ecc.service dest=/etc/systemd/system owner=root group=root
+  
+- name: start ECC server
+  service: name=ecc state=started

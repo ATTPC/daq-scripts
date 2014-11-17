@@ -1,0 +1,9 @@
+[Unit]
+Description=GET ECC Soap Server
+
+[Service]
+ExecStart=/daq/GET/latest/software/pkg/bin/getEccSoapServer --config-repo-url /daq/Configs
+Environment="LD_LIBRARY_PATH=/daq/GET/latest/software/pkg/lib:$LD_LIBRARY_PATH"
+
+[Install]
+WantedBy=multi-user.target
