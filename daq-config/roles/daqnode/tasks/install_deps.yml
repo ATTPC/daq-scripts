@@ -37,6 +37,7 @@
   with_items: 
     - vim
     - telnet
+    - nfs-utils
 
 # The next one is required for the perl packages
 

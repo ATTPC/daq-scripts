@@ -22,6 +22,12 @@
 - name: sync GET packages
   synchronize: src=/daq/GET dest=/daq
   
+- name: create ECC configs mount point
+  file: path=/daq/Configs owner=attpc group=attpc mode=0775 state=directory
+  
+- name: mount ECC configs directory
+  mount: name=/daq/Configs src=192.168.41.10:/daq/Configs fstype=nfs state=mounted
+  
 - name: set up ECC service
   copy: src=ecc.service dest=/etc/systemd/system owner=root group=root
   
