@@ -10,6 +10,7 @@
     - local_path_root: /data/fetched
   
   tasks:
-    - synchronize: mode=pull src="{{ remote_path }}" 
+    - name: Sync data folders
+      synchronize: mode=pull src="{{ remote_path }}" 
         dest="{{ local_path_root }}/{{ inventory_hostname }}"
         copy_links=yes
