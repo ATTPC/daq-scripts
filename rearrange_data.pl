@@ -56,7 +56,7 @@ for my $n (0 .. 9) {
       if (not -d "$finalpath/$rundir" ) {
         make_path("$finalpath/$rundir");  
       }
-      cp($file,"$finalpath/$rundir/$newFileName");
+      cp($file,"$finalpath/$rundir/$newFileName") if not -e "$finalpath/$rundir/$newFileName";
     }
   }
 }
