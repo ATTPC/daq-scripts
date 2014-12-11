@@ -1,0 +1,16 @@
+---
+# Fetch data from DAQ nodes
+
+- name: fetch data
+  hosts: active
+  remote_user: attpc
+  
+  vars:
+    - remote_path: "/data/attpcX/{{ exp_name }}/acquisition/run"
+    - local_path_root: /data/fetched
+  
+  tasks:
+    - name: Fetch data file
+      fetch: src="{{ remote_path }}/{{ run" 
+        dest="{{ local_path_root }}/{{ inventory_hostname }}"
+        copy_links=yes
