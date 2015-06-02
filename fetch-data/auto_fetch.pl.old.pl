@@ -9,7 +9,7 @@ if (@ARGV == 0) {
 
 my $expname = $ARGV[0]; # i.e. alphas
 #my $cfgname = $ARGV[1]; # i.e. nobeam, pedestals
-my $runnum  = $ARGV[1]; # i.e. run_0020
+#my $runnum  = $ARGV[2]; # i.e. run_0020
 
 #my $cfgfilename = "/daq/Configs/configure-$cfgname-all.xcfg";
 #if not -e $cfgfilename {
@@ -19,15 +19,10 @@ my $runnum  = $ARGV[1]; # i.e. run_0020
 
 print "Fetching and rearranging data for experiment $expname.\n";
 
-my $ansible_cmd = "ansible-playbook /Users/attpc/ansible-attpc/fetch-data/fetch-file.yml --extra-vars 'exp_name=$expname run_name=$runnum'";
-my @rearrange_cmd = ("/Users/attpc/ansible-attpc/rearrange_data_mac.pl","$expname");
+my @ansible_cmd = ("ansible-playbook","/home/attpc/ansible-attpc/fetch-data/fetch.yml");
+#my @rearrange_cmd = ("/home/attpc/ansible-attpc/make_data_links.pl","$expname");
 
-# print "$ansible_cmd\n";
-# print "@rearrange_cmd\n";
-
-system($ansible_cmd);
-system(@rearrange_cmd);
-
-print "Finished fetching data.\n"
+system(@ansible_cmd);
+#system(@rearrange_cmd);
 
 #system(cp,$cfgfilename,$cfgfilename_new);

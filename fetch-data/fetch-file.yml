@@ -7,10 +7,18 @@
   
   vars:
     - remote_path: "/data/attpcX/{{ exp_name }}/acquisition/run"
-    - local_path_root: /data/fetched
+    - local_path: "/data/{{ exp_name }}"
   
   tasks:
-    - name: Fetch data file
-      fetch: src="{{ remote_path }}/{{ run" 
-        dest="{{ local_path_root }}/{{ inventory_hostname }}"
-        copy_links=yes
+    - name: Find remote file name
+      shell: "ls -1 {{ remote_path }}/{{ run_name }}.dat*"
+      register: lsfiles
+
+    # - name: Determine new file name
+    #   shell: "echo {{ item }} | perl -ne 'print "{{ inventory_hostname }}_$1_$3.graw" if /(run_\d\d\d\d)(\.dat\.)(.*)/'
+
+    - name: Fetch data file(s)
+      fetch: src={{ item }}
+             dest="{{ local_path }}/temp/{{ inventory_hostname }}/"
+             fail_on_missing=yes flat=yes
+      with_items: lsfiles.stdout_lines
