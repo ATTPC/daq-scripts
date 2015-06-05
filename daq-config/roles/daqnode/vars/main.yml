@@ -1,0 +1,4 @@
+---
+# Variables naming directories on the remote systems
+
+package_dir: "{{ ansible_user_dir }}/packages"

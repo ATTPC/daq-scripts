@@ -7,9 +7,6 @@
 - name: add attpc user to daq
   user: name=attpc append=yes groups=daq state=present
   
-- name: add ansible user to daq
-  user: name=ansible append=yes groups=daq state=present
-  
 - name: setup ssh keys for attpc
   user: name=attpc generate_ssh_key=yes ssh_key_type=rsa state=present
   
@@ -17,9 +14,17 @@
   fetch: src=/home/attpc/.ssh/id_rsa.pub flat=yes
     dest=/home/attpc/.ssh/node_keys/id_rsa_{{ inventory_hostname }}.pub
   
-- name: authorize all keys on all nodes
-  authorized_key: user=attpc key="{{ lookup('file', item ) }}"
-    manage_dir=yes state=present
-  with_fileglob: 
-    - /home/attpc/.ssh/node_keys/*
-    - /home/attpc/.ssh/id_rsa.pub
+#- name: authorize all keys on all nodes
+#  authorized_key: user=attpc key="{{ lookup('file', item ) }}"
+#    manage_dir=yes state=present
+#  with_fileglob: 
+#    - /home/attpc/.ssh/node_keys/*
+#    - /home/attpc/.ssh/id_rsa.pub
+    
+- name: configure ssh on nodes
+  copy: src=ssh-config
+        dest='~attpc/.ssh/config'
+        force=yes
+        owner='attpc'
+        group='attpc'
+        mode='644'

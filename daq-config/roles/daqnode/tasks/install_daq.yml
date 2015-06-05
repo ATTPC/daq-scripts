@@ -9,15 +9,9 @@
 
 - name: sync ACQ_HOST links
   synchronize: src=/daq/ACQ_HOST dest=/daq
-  
-- name: create data dir in root and home
-  file: path={{ item }} owner=attpc group=attpc state=directory
-  with_items: 
-    - /data
-    - /home/attpc/data
-  
-- name: link ~/data to /data/name
-  file: src=/home/attpc/data dest=/data/attpcX state=link
+    
+- name: create attpcX dir in data dir
+  file: path=/data/attpcX owner=attpc group=attpc state=directory
   
 - name: sync GET packages
   synchronize: src=/daq/GET dest=/daq

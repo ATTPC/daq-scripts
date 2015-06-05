@@ -7,5 +7,5 @@
   
   tasks:
     - name: authorize root public key
-      authorized_key: user=root manage_dir=yes key="{{ lookup('file', '/var/root/.ssh/id_rsa.pub') }}"
+      authorized_key: user=root manage_dir=yes key="{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
         state=present

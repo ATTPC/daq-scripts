@@ -2,10 +2,8 @@
 # This contains tasks to install dependencies for the DAQ server software
 
 - name: install dependencies for daq
-  yum: name={{ item }} state=present
+  dnf: name={{ item }} state=present
   with_items:
-    - gsoap
-    - gsoap-devel
     - log4cxx
     - log4cxx-devel
     - xerces-c
@@ -23,17 +21,40 @@
     - perl-CPAN
     - log4j
     
+- name: copy gsoap rpms to target
+  copy: src={{ item }} dest={{ package_dir }}/
+        owner=attpc group=attpc
+  with_items:
+    - gsoap-2.7.16-4.el6.x86_64.rpm
+    - gsoap-devel-2.7.16-4.el6.x86_64.rpm
+    
+- name: install local gsoap packages
+  dnf: name={{ package_dir }}/{{ item }} state=present
+  with_items:
+    - gsoap-2.7.16-4.el6.x86_64.rpm
+    - gsoap-devel-2.7.16-4.el6.x86_64.rpm
+    
+- name: make dnf ignore future updates to gsoap
+  ini_file: dest=/etc/dnf/dnf.conf
+            section=main
+            option=exclude
+            value=gsoap*
+    
+- name: configure Ice repo
+  copy: src=zeroc-ice-el7.repo dest=/etc/yum.repos.d/
+        owner=root group=root mode=644
+    
 - name: install dependencies for GET
-  yum: name={{ item }} state=present
+  dnf: name={{ item }} state=present
   with_items:
     - qwt
     - qwt-devel
     - boost-devel
     - ice
-    - ice-devel
+    - ice-c++-devel
 
 - name: install other convenient packages
-  yum: name={{ item }} state=present
+  dnf: name={{ item }} state=present
   with_items: 
     - vim
     - telnet
@@ -42,7 +63,7 @@
 # The next one is required for the perl packages
 
 - name: install cpanminus
-  yum: name=perl-App-cpanminus state=present
+  dnf: name=perl-App-cpanminus state=present
 
 - name: install perl packages
   cpanm: name={{ item }} 
