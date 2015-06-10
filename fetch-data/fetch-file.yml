@@ -2,13 +2,13 @@
 # Fetch data from DAQ nodes
 
 - name: fetch data
-  hosts: active
+  hosts: macminis
   remote_user: attpc
-  
+
   vars:
     - remote_path: "/data/attpcX/{{ exp_name }}/acquisition/run"
     - local_path: "/data/{{ exp_name }}"
-  
+
   tasks:
     - name: Find remote file name
       shell: "ls -1 {{ remote_path }}/{{ run_name }}.dat*"
