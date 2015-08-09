@@ -56,7 +56,7 @@ def rearrange_files():
     graw_regex = r'CoBo_AsAd\d_(?P<timestamp>.*)_(?P<index>\d{4}).graw'
     matches = [re.search(graw_regex, p) for p in datafiles]
     timestamps = []
-    indices = []
+    # indices = []
     for m in matches:
         assert m is not None, 'Regex match on filename failed'
         gd = m.groupdict()
@@ -69,10 +69,10 @@ def rearrange_files():
         print('I can\'t copy the files automatically, so do it manually. Sorry!')
         sys.exit(1)
 
-    if len(set(indices)) != len(indices):
-        # This checks that the indices are unique
-        print('Two runs had the same index... failing.')
-        sys.exit(2)
+    # if len(set(indices)) != len(indices):
+    #     # This checks that the indices are unique
+    #     print('Two runs had the same index... failing.')
+    #     sys.exit(2)
 
     # Actually move the files now
     print('Moving data files')
