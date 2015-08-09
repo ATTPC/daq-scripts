@@ -22,8 +22,26 @@
 - name: mount ECC configs directory
   mount: name=/daq/Configs src=192.168.41.10:/daq/Configs fstype=nfs state=mounted
   
-- name: set up ECC service
+- name: mount the .narval directory
+  mount: name=/home/attpc/.narval src=192.168.41.10:/home/attpc/.narval fstype=nfs state=mounted
+  
+- name: mount the ganacq_manip directory
+  mount: name=/home/attpc/ganacq_manip src=192.168.41.10:/home/attpc/ganacq_manip fstype=nfs state=mounted
+  
+- name: set up ECC Soap service
   copy: src=ecc.service dest=/etc/systemd/system owner=root group=root
   
-- name: start ECC server
-  service: name=ecc state=started
+- name: set up ECC Ice service
+  copy: src=eccice.service dest=/etc/systemd/system owner=root group=root
+  
+- name: set up datarouter
+  copy: src=datarouter.service dest=/etc/systemd/system owner=root group=root
+  
+- name: enable/disable ECC soap server
+  service: name=ecc state=stopped
+  
+- name: enable/disable ECC ice server
+  service: name=eccice state=started
+  
+- name: enable/disable datarouter
+  service: name=datarouter state=started

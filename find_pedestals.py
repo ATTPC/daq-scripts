@@ -82,7 +82,7 @@ def main():
 	print('\nRecovering pad mapping from first event in file...')
 
 	evt = efile[0]
-	ped_table.loc[evt.traces['pad'], ['cobo', 'asad', 'aget', 'channel']] = evt.traces[['cobo', 'asad', 
+	ped_table.loc[evt.traces['pad'], ['cobo', 'asad', 'aget', 'channel']] = evt.traces[['cobo', 'asad',
 																						'aget', 'channel']].view('u1').reshape(-1, 4)
 	del evt
 
@@ -100,8 +100,7 @@ def main():
 
 	# Save the output
 
-	with open(args.output, 'w') as f:
-		f.write(ped_table.to_string())
+	ped_table.to_csv(args.output)
 
 	print('Wrote pedestals to file', args.output)
 
