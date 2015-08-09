@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from __future__ import print_function, division
 import glob
 import os
@@ -63,7 +63,7 @@ def rearrange_files():
         timestamps.append(gd.get('timestamp'))
         indices.append(gd.get('index'))
 
-    if len(set(timestamps)) > 1:
+    if len(set(timestamps)) > 4:
         # This checks if the timestamps are all identical
         print('More than one run exists in the output directory.')
         print('I can\'t copy the files automatically, so do it manually. Sorry!')
