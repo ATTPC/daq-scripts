@@ -61,7 +61,7 @@ def rearrange_files():
         assert m is not None, 'Regex match on filename failed'
         gd = m.groupdict()
         timestamps.append(gd.get('timestamp'))
-        indices.append(gd.get('index'))
+        # indices.append(gd.get('index'))
 
     if len(set(timestamps)) > 4:
         # This checks if the timestamps are all identical
