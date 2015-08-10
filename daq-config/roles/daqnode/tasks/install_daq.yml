@@ -9,39 +9,42 @@
 
 - name: sync ACQ_HOST links
   synchronize: src=/daq/ACQ_HOST dest=/daq
-    
+
 - name: create attpcX dir in data dir
   file: path=/data/attpcX owner=attpc group=attpc state=directory
-  
+
 - name: sync GET packages
   synchronize: src=/daq/GET dest=/daq
-  
+
 - name: create ECC configs mount point
   file: path=/daq/Configs owner=attpc group=attpc mode=0775 state=directory
-  
+
 - name: mount ECC configs directory
   mount: name=/daq/Configs src=192.168.41.10:/daq/Configs fstype=nfs state=mounted
-  
+
 - name: mount the .narval directory
   mount: name=/home/attpc/.narval src=192.168.41.10:/home/attpc/.narval fstype=nfs state=mounted
-  
+
 - name: mount the ganacq_manip directory
   mount: name=/home/attpc/ganacq_manip src=192.168.41.10:/home/attpc/ganacq_manip fstype=nfs state=mounted
-  
+
 - name: set up ECC Soap service
   copy: src=ecc.service dest=/etc/systemd/system owner=root group=root
-  
+
 - name: set up ECC Ice service
   copy: src=eccice.service dest=/etc/systemd/system owner=root group=root
-  
+
 - name: set up datarouter
   copy: src=datarouter.service dest=/etc/systemd/system owner=root group=root
-  
+
 - name: enable/disable ECC soap server
   service: name=ecc state=stopped
-  
+
 - name: enable/disable ECC ice server
   service: name=eccice state=started
-  
+
 - name: enable/disable datarouter
   service: name=datarouter state=started
+
+- name: sync daq-scripts repo
+  git: repo=https://github.com/attpc/daq-scripts.git dest=/home/attpc/daq-scripts
