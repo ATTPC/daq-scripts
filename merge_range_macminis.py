@@ -45,7 +45,9 @@ def main():
 		results = {}
 
 	for s in path_string(lower_bound, upper_bound):
-		src_files = glob.glob(os.path.join(srcrt, s + '*'))
+		src_files = set(glob.glob(os.path.join(srcrt, s + '*')))
+		lookup_files = set(glob.glob(os.path.join(srcrt, s + '*.lookup')))
+		src_files -= lookup_files
 		dst_path = os.path.join(dstrt, '{}_cobo{}.evt'.format(s, mmn))
 
 		if len(src_files) == 0:
