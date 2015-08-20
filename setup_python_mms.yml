@@ -1,0 +1,31 @@
+---
+# Set up python on the mac minis for analysis
+
+- name: Setup python on Mac minis
+  hosts: macminis
+  remote_user: attpc
+
+  vars:
+    - miniconda_link: "https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+
+  tasks:
+    - name: download miniconda installer
+      get_url: url={{ miniconda_link }} dest=/home/attpc/miniconda_install.sh
+
+    - name: install miniconda
+      shell: /home/attpc/miniconda_install.sh -b -f
+
+    - name: install dependencies
+      shell: conda install -y numpy scipy matplotlib scikit-learn seaborn
+
+    - name: get pytpc from github
+      git: repo=https://github.com/attpc/pytpc dest=/home/attpc
+
+    - name: install pytpc
+      shell: /home/attpc/miniconda3/bin/python /home/attpc/pytpc/setup.py install
+
+    - name: get pymerge from github
+      git: repo=https://github.com/attpc/pymerge dest=/home/attpc
+
+    - name: install pymerge
+      shell: /home/attpc/miniconda3/bin/python /home/attpc/pymerge/setup.py install
