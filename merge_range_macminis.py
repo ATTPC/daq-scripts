@@ -54,7 +54,8 @@ def main():
 			continue
 
 		this_cmd = cmd + src_files
-		this_cmd.append('-o ' + dst_path)
+		this_cmd.append('-o')
+		this_cmd.append(dst_path)
 
 		print("Running command:")
 		print(' '.join(this_cmd))
