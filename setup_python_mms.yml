@@ -29,3 +29,6 @@
 
     - name: install pymerge
       shell: /home/attpc/miniconda3/bin/python /home/attpc/pymerge/setup.py install
+
+    - name: get daq-scripts from github
+      git: repo=https://github.com/attpc/daq-scripts dest=/home/attpc
